@@ -3,7 +3,7 @@ using Zomby;
 
 namespace Visual
 {
-    public class ZombyVfx : MonoBehaviour
+    public sealed class ZombyVfx : MonoBehaviour
     {
         [SerializeField] private ZombyModel zombyModel;
         [SerializeField] private ParticleSystem takeDamageParticle;

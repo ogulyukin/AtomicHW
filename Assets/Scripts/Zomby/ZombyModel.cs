@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core;
 using Mechanics;
 using UnityEngine;
@@ -26,36 +27,34 @@ namespace Zomby
         public AtomicEvent onHit;
         public AtomicEvent deleteMe;
 
+        private readonly List<IEventMechanic> mechanics = new();
         private MovementMechanic movementMechanic;
         private TargetMovementMechanic targetMovementMechanic;
         private ZombyCanMoveMechanic zombyCanMoveMechanic;
         private AttackMechanic attackMechanic;
         private AttackDistanceCheckMechanic attackDistanceCheckMechanic;
         private CanAttackMechanic canAttackMechanic;
-        private TakeDamageEventMechanic takeDamageEventMechanic;
-        private DeathEventMechanic deathEventMechanic;
-        private DealDamageMechanic dealDamageMechanic;
         private DecayInactiveObjectMechanic decayInactiveObjectMechanic;
-        private DeleteObjectMechanic deleteObjectMechanic;
-        private ZombyKillCountEventMechanic zombyKillCountEventMechanic;
 
         private void Awake()
         {
             playerTransform = GameObject.FindWithTag("Player").transform;
+            var zombyTransform = transform;
             attackDistanceCheckMechanic = new AttackDistanceCheckMechanic(attackDistance, isAlive,
-                attackDistanceReached, playerTransform, transform);
+                attackDistanceReached, playerTransform, zombyTransform);
             canAttackMechanic = new CanAttackMechanic(isAlive, canAttack, attackDistanceReached);
-            movementMechanic = new MovementMechanic(canMove, speed, moveDirection, transform);
-            targetMovementMechanic = new TargetMovementMechanic(playerTransform, moveDirection, transform, isAlive);
+            movementMechanic = new MovementMechanic(canMove, speed, moveDirection, zombyTransform);
+            targetMovementMechanic = new TargetMovementMechanic(playerTransform, moveDirection, zombyTransform, isAlive);
             zombyCanMoveMechanic =
                 new ZombyCanMoveMechanic(isAlive, canMove, isAttacking, attackDistanceReached);
             attackMechanic = new AttackMechanic(canAttack, isAttacking, attackTimeout, onAttackRequested, onHit);
-            takeDamageEventMechanic = new TakeDamageEventMechanic(health, OnTakeDamage);
-            deathEventMechanic = new DeathEventMechanic(health, isAlive, onDeath);
-            dealDamageMechanic = new DealDamageMechanic(playerTransform, damage, onHit);
+            mechanics.Add(new TakeDamageEventMechanic(health, OnTakeDamage));
+            mechanics.Add(new DeathEventMechanic(health, isAlive, onDeath));
+            mechanics.Add(new DealDamageMechanic(playerTransform, damage, onHit));
             decayInactiveObjectMechanic = new DecayInactiveObjectMechanic(decayTimeout, deleteMe, onDeath);
-            deleteObjectMechanic = new DeleteObjectMechanic(deleteMe, transform);
-            zombyKillCountEventMechanic = new ZombyKillCountEventMechanic(this);
+            mechanics.Add(decayInactiveObjectMechanic);
+            mechanics.Add(new DeleteObjectMechanic(deleteMe, transform));
+            mechanics.Add(new ZombyKillCountEventMechanic(this));
             isAlive.Value = true;
         }
 
@@ -72,22 +71,18 @@ namespace Zomby
 
         private void OnEnable()
         {
-            takeDamageEventMechanic.OnEnable();
-            deathEventMechanic.OnEnable();
-            dealDamageMechanic.OnEnable();
-            decayInactiveObjectMechanic.OnEnable();
-            deleteObjectMechanic.OnEnable();
-            zombyKillCountEventMechanic.OnEnable();
+            foreach (var mechanic in mechanics)
+            {
+                mechanic.OnEnable();
+            }
         }
 
         private void OnDisable()
         {
-            takeDamageEventMechanic.OnDisable();
-            deathEventMechanic.OnDisable();
-            dealDamageMechanic.OnDisable();
-            decayInactiveObjectMechanic.OnDisable();
-            deleteObjectMechanic.OnDisable();
-            zombyKillCountEventMechanic.OnDisable();
+            foreach (var mechanic in mechanics)
+            {
+                mechanic.OnDisable();
+            }
         }
     }
 }

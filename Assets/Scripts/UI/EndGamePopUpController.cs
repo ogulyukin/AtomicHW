@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class EndGamePopUpController :IDisposable
+    public sealed class EndGamePopUpController :IDisposable
     {
         private const float PopUpTimeout = 3f;
         private readonly PlayerModel playerModel;

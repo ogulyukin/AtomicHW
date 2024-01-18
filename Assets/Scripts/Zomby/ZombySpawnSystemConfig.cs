@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Zomby
 {
-    public class ZombySpawnSystemConfig : MonoBehaviour
+    public sealed class ZombySpawnSystemConfig : MonoBehaviour
     {
         public GameObject zombyPrefab;
         public List<Transform> spawnPoints;

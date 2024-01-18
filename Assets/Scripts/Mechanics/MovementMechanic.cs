@@ -21,7 +21,7 @@ namespace Mechanics
         public void Update()
         {
             if(!canMove.Value) return;
-            targetTransform.position += moveDirection.Value * speed.Value * Time.deltaTime;
+            targetTransform.position += speed.Value * Time.deltaTime * moveDirection.Value;
         }
     }
 }

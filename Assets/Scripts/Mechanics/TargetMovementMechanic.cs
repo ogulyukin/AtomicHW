@@ -23,7 +23,8 @@ namespace Mechanics
         {
             if (isAlive.Value)
             {
-                entityTransform.LookAt(new Vector3(targetTransform.position.x, entityTransform.position.y, targetTransform.position.z));
+                var position = targetTransform.position;
+                entityTransform.LookAt(new Vector3(position.x, entityTransform.position.y, position.z));
                 moveDirection.Value = entityTransform.forward;    
             }
         }

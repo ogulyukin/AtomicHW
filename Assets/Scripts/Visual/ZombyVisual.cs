@@ -3,16 +3,15 @@ using Zomby;
 
 namespace Visual
 {
-    public class ZombyVisual: MonoBehaviour
+    public sealed class ZombyVisual: MonoBehaviour
     {
         [SerializeField] private ZombyModel model;
         [SerializeField] private Animator animator;
-        [SerializeField] public AnimatorDispatcher animatorDispatcher;
         private ZombyAnimatorController zombyAnimatorController;
 
         private void Awake()
         {
-            zombyAnimatorController = new ZombyAnimatorController(model, animator, animatorDispatcher);
+            zombyAnimatorController = new ZombyAnimatorController(model, animator);
         }
 
         private void OnEnable()

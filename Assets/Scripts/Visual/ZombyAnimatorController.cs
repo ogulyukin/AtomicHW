@@ -4,7 +4,7 @@ using Zomby;
 
 namespace Visual
 {
-    public class ZombyAnimatorController
+    public sealed class ZombyAnimatorController
     {
         private static readonly int MainState = Animator.StringToHash("State");
         private const int Idle = 0;
@@ -18,7 +18,7 @@ namespace Visual
         private readonly AtomicEvent onDeath;
         private readonly Animator animator;
 
-        public ZombyAnimatorController(ZombyModel model, Animator animator, AnimatorDispatcher animatorDispatcher)
+        public ZombyAnimatorController(ZombyModel model, Animator animator)
         {
             moveDirection = model.moveDirection;
             canMove = model.canMove;

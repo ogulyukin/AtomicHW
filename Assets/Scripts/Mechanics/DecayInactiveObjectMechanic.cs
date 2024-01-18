@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Mechanics
 {
-    public class DecayInactiveObjectMechanic : IEventMechanic
+    public sealed class DecayInactiveObjectMechanic : IEventMechanic
     {
         private readonly AtomicVariable<float> deleteTimeout;
         private readonly AtomicEvent deleteMe;

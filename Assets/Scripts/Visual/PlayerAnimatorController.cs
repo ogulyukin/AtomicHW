@@ -16,7 +16,7 @@ namespace Visual
         private readonly AtomicEvent onDeath;
         private readonly Animator animator;
 
-        public PlayerAnimatorController(AtomicVariable<Vector3> moveDirection, AtomicVariable<bool> canMove, Animator animator, AtomicEvent onDeath, AnimatorDispatcher animatorDispatcher)
+        public PlayerAnimatorController(AtomicVariable<Vector3> moveDirection, AtomicVariable<bool> canMove, Animator animator, AtomicEvent onDeath)
         {
             this.moveDirection = moveDirection;
             this.canMove = canMove;

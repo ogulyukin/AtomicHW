@@ -7,13 +7,12 @@ namespace Visual
     {
         [SerializeField] private PlayerModel playerModel;
         [SerializeField] private Animator animator;
-        [SerializeField] public AnimatorDispatcher animatorDispatcher;
         private PlayerAnimatorController playerAnimatorController;
 
         private void Awake()
         {
             playerAnimatorController = new PlayerAnimatorController(playerModel.moveDirection, playerModel.canMove, animator,
-                playerModel.onDeath, animatorDispatcher);
+                playerModel.onDeath);
         }
 
         private void OnEnable()

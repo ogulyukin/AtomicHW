@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Visual
 {
-    public class PlayerAudio : MonoBehaviour
+    public sealed class PlayerAudio : MonoBehaviour
     {
         [SerializeField] private AudioSource fireAudio;
         [SerializeField] private AudioSource stepAudio;

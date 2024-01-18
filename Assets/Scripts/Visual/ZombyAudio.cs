@@ -3,7 +3,7 @@ using Zomby;
 
 namespace Visual
 {
-    public class ZombyAudio : MonoBehaviour
+    public sealed class ZombyAudio : MonoBehaviour
     {
         [SerializeField] private AudioSource startAudio;
         [SerializeField] private AudioSource attackAudio;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bullet
 {
-    public class Bullet : MonoBehaviour
+    public sealed class Bullet : MonoBehaviour
     {
         public AtomicVariable<float> speed;
         public AtomicVariable<Vector3> moveDirection;

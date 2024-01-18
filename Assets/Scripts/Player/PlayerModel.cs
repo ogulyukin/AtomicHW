@@ -36,8 +36,9 @@ namespace Player
             mechanics.Add(new TakeDamageEventMechanic(health, OnTakeDamage));
             mechanics.Add(new DeathEventMechanic(health,isAlive, onDeath));
             mechanics.Add( new ShootEventMechanic(onFireRequested, firePoint, bullet, transform, canShoot, onFire));
-            movementMechanic = new MovementMechanic(canMove, speed, moveDirection, transform);
-            rotateForMouseMechanic = new RotateForMouseMechanic(isAlive, transform);
+            var playerTransform = transform;
+            movementMechanic = new MovementMechanic(canMove, speed, moveDirection, playerTransform);
+            rotateForMouseMechanic = new RotateForMouseMechanic(isAlive, playerTransform);
             canShootEventMechanic = new CanShootEventMechanic(canShoot, amoAmount, shootTimeout, onFire, isAlive);
             mechanics.Add(canShootEventMechanic);
             addAmoMechanic = new AddAmoMechanic(addAmoTimeout, amoAmount, isAlive, onReloadAmo, maxAmoAmount);

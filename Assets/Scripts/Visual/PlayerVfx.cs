@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Visual
 {
-    public class PlayerVfx : MonoBehaviour
+    public sealed class PlayerVfx : MonoBehaviour
     {
         [SerializeField] private PlayerModel playerModel;
         [SerializeField] private ParticleSystem takeDamageParticle;
